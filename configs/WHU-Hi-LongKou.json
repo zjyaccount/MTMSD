@@ -9,7 +9,7 @@
   "training_path": "datasets/WHU-Hi-LongKou",
   "validation_path": "datasets/WHU-Hi-LongKou",
   "testing_path": "datasets/WHU-Hi-LongKou",
-  "model_path": "checkpoints/Longkou_PCA34_10kp_60k_res2_mult122_t1000.pt",
+  "model_path": "checkpoints/Longkou_PCA34_10kp_40k_res2_mult122_t1000.pt",
 
   "dim": [48, 48, 24320],
   "steps": [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950],

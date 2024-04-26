@@ -9,7 +9,7 @@
   "training_path": "datasets/PaviaU",
   "validation_path": "datasets/PaviaU",
   "testing_path": "datasets/PaviaU",
-  "model_path": "checkpoints/paviau_PCA13_100kp_50k_res2_mult122_t1000.pt",
+  "model_path": "checkpoints/paviau_PCA13_100kp_40k_res2_mult122_t1000.pt",
 
   "dim": [48, 48, 24320],
   "steps": [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950],
