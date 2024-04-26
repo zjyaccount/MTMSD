@@ -17,17 +17,17 @@ The code has been tested with PyTorch 2.0 and Cuda 11.7
 3. To finetune the classifiers on the four datasets, run
 
 ```
-$ CUDA_VISIBLE_DEVICES=0 bash scripts/train_test_ip.sh
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_test_ip.sh
 ```
 
 ```
-$ CUDA_VISIBLE_DEVICES=0 bash scripts/train_test_pu.sh
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_test_pu.sh
 ```
 
 ```
-$ CUDA_VISIBLE_DEVICES=0 bash scripts/train_test_hu18.sh
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_test_hu18.sh
 ```
 
 ```
-$ CUDA_VISIBLE_DEVICES=0 bash scripts/train_test_longkou.sh
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_test_longkou.sh
 ```
