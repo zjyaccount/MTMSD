@@ -1,0 +1,28 @@
+{
+  "exp_dir": "saved_models/Houston2018",
+  "model_type": "ddpm",
+  
+  "category": "Houston2018",
+  "number_class": 20,
+  "ignore_label": 255,
+
+  "training_path": "datasets/Houston2018",
+  "validation_path": "datasets/Houston2018",
+  "testing_path": "datasets/Houston2018",
+  "model_path": "checkpoints/houston2018_PCA6_100kp_50k_res2_mult122_t1000.pt",
+
+  "dim": [48, 48, 24320],
+  "steps": [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950],
+  "blocks": [0, 1, 2, 3, 5],
+
+  "model_num": 5,
+  "batch_size": 8,
+  "max_training": 30,
+  
+  "upsample_mode":"bilinear",
+  "training_number": -1,
+  "testing_number": -1,
+
+  "share_noise": true,
+  "input_activations": false
+ }

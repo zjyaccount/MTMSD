@@ -1,0 +1,28 @@
+{
+  "exp_dir": "saved_models/PaviaU",
+  "model_type": "ddpm",
+  
+  "category": "PaviaU",
+  "number_class": 9,
+  "ignore_label": 255,
+
+  "training_path": "datasets/PaviaU",
+  "validation_path": "datasets/PaviaU",
+  "testing_path": "datasets/PaviaU",
+  "model_path": "checkpoints/paviau_PCA13_100kp_50k_res2_mult122_t1000.pt",
+
+  "dim": [48, 48, 24320],
+  "steps": [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950],
+  "blocks": [0, 1, 2, 3, 5],
+
+  "model_num": 5,
+  "batch_size": 16,
+  "max_training": 30,
+  
+  "upsample_mode":"bilinear",
+  "training_number": -1,
+  "testing_number": -1,
+
+  "share_noise": true,
+  "input_activations": false
+ }
