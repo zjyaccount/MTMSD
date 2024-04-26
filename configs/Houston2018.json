@@ -16,7 +16,7 @@
   "blocks": [0, 1, 2, 3, 5],
 
   "model_num": 5,
-  "batch_size": 8,
+  "batch_size": 64,
   "max_training": 30,
   
   "upsample_mode":"bilinear",

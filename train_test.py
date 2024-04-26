@@ -51,7 +51,7 @@ def train(args, train_dataloader, if_glob_features=False):
         else:
             classifier = classifier_selective_ts(numpy_class=(args['number_class']), dim=args['dim'][-1])
         classifier.init_weights()
-        learning_rate = 0.001
+        learning_rate = args['lr']
         epochs = 100
         classifier = nn.DataParallel(classifier).cuda()
         criterion = nn.CrossEntropyLoss()
@@ -88,7 +88,7 @@ def train(args, train_dataloader, if_glob_features=False):
                         else:
                             break_count += 1
 
-                        if break_count > 800:
+                        if break_count > 1000:
                             stop_sign = 1
                             print("*************** Break, Total iters,", iteration, ", at epoch", str(epoch), "***************")
                             break
@@ -118,7 +118,7 @@ def train(args, train_dataloader, if_glob_features=False):
                         else:
                             break_count += 1
 
-                        if break_count > 800:
+                        if break_count > 1000:
                             stop_sign = 1
                             print("*************** Break, Total iters,", iteration, ", at epoch", str(epoch), "***************")
                             break
@@ -138,8 +138,9 @@ if __name__ == '__main__':
     add_dict_to_argparser(parser, model_and_diffusion_defaults())
     parser.add_argument('--exp', type=str)
     parser.add_argument('--test_ratio', type=float,  default=0)
-    parser.add_argument('--dataset', type=str, default="Houston2013") #加了数据集参数
-    parser.add_argument('--seed', type=int,  default=345)
+    parser.add_argument('--dataset', type=str, default="Indian_Pines") 
+    parser.add_argument('--lr', type=float, default=0.001) 
+    parser.add_argument('--seed', type=int,  default=827)
     parser.add_argument('--feature_patch_size', type=int, default=3)
     args = parser.parse_args()
     setup_seed(args.seed)
@@ -168,9 +169,9 @@ if __name__ == '__main__':
         testRatio = 0.95
     else: print('dataset not found')
     
-    if testRatio != 0: testRatio = args.test_ratio
+    if opts['test_ratio'] == 0: opts['test_ratio'] = testRatio
     
-    print(testRatio)
+    print(opts['test_ratio'])
     
     if_glob_features = True
     

@@ -48,7 +48,7 @@ class selective_ts(nn.Module):
 
 class selective_ts_with_g(nn.Module):
     def __init__(self, dim, r=2):
-        super(selective_ts_with_g1, self).__init__()
+        super(selective_ts_with_g, self).__init__()
         self.dim = dim
         self.M = 19
         d = self.dim // r
@@ -95,7 +95,7 @@ class selective_ts_with_g(nn.Module):
 
 class classifier_selective_ts_with_g(nn.Module):
     def __init__(self, numpy_class, dim):
-        super(pixel_classifier_selective_time_with_g, self).__init__()
+        super(classifier_selective_ts_with_g, self).__init__()
         dim = 768
         self.scale = 64
         self.dy_att = selective_ts_with_g(dim)
@@ -152,7 +152,7 @@ class classifier_selective_ts_with_g(nn.Module):
 
 class classifier_selective_ts(nn.Module):
     def __init__(self, numpy_class, dim):
-        super(pixel_classifier_selective_time, self).__init__()
+        super(classifier_selective_ts, self).__init__()
         dim = 768
         self.scale = 64
         self.dy_att = selective_ts(dim)
@@ -310,3 +310,11 @@ def load_ensemble(args, device='cpu', if_glob_features=False):
         model = model.module.to(device)
         models.append(model.eval())
     return models
+
+def AA_andEachClassAccuracy(confusion_matrix):
+
+    list_diag = np.diag(confusion_matrix)
+    list_raw_sum = np.sum(confusion_matrix, axis=1)
+    each_acc = np.nan_to_num(truediv(list_diag, list_raw_sum))
+    average_acc = np.mean(each_acc)
+    return each_acc, average_acc
