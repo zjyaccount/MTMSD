@@ -1,4 +1,4 @@
-from data_provider import HSIDataLoader
+from data_read import HSIDataLoader
 from guided_diffusion.guided_diffusion.script_util import model_and_diffusion_defaults, add_dict_to_argparser
 from src.utils import setup_seed, multi_acc
 import argparse
