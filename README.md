@@ -1,5 +1,7 @@
 # MTMSD: Exploring Multi-Timestep Multi-Stage Diffusion Features for Hyperspectral Image Classification
 
+This repository is the official implementation of MTMSD: Exploring Multi-Timestep Multi-Stage Diffusion Features for Hyperspectral Image Classification 
+
 ## Requirements
 Please follow the instructions below to install the required packages. We run the code and obtain the results on PyTorch 2.0.1 and CUDA 11.7. 
 ```
@@ -9,8 +11,32 @@ conda install -c conda-forge mpi4py mpich
 pip install scikit-learn blobfile scipy tqdm
 ```
 
+## Datasets
+Download following datasets:
+* Indian Pines
+* Pavia University
+* Houston 2018
+* WHU-Hi-LongKou
+  
+Then organize these datasets like:
+```
+datasets
+   Indian_Pines
+      Indian_pines_corrected.mat
+      Indian_pines_gt.mat
+   PaviaU
+      PaviaU.mat
+      PaviaU_gt.mat
+   Houston2018
+      Houston2018.mat
+      Houston2018_gt.mat
+   WHU-Hi-LongKou
+      WHU_Hi_LongKou.mat
+      WHU_Hi_LongKou_gt.mat
+```
+
 ## How to use it?
-1. Prepare datasets and features. The features extracted from the unsupervisedly pretrained ddpm model are needed for the finetuning. We provide two ways to get these features.
+1. Prepare diffusion features. The diffusion features extracted from the unsupervisedly pretrained ddpm model are needed for the finetuning. We provide two ways to get these features.
    
    * Option 1: Download the pretrained diffusion weights and extract features for each dataset.
 
