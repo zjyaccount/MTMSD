@@ -32,7 +32,7 @@ pip install scikit-learn blobfile scipy tqdm
      bash scripts/feature_extract_longkou.sh
      ```
    
-   * Option 2: Download the extracted features directly and put them under the /saved_features directory.
+   * Option 2: Download and unzip the extracted features directly and put them under the /saved_features directory.
 
      The extracted features are available at:
      BaiDuNetdisk： https://pan.baidu.com/s/1zajMlZQtR6KGdZtc-sIN_g?pwd=1ahi
