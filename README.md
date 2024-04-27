@@ -20,17 +20,17 @@ Download following datasets:
   
 Then organize these datasets like:
 ```
-datasets
-   Indian_Pines
+datasets/
+   Indian_Pines/
       Indian_pines_corrected.mat
       Indian_pines_gt.mat
-   PaviaU
+   PaviaU/
       PaviaU.mat
       PaviaU_gt.mat
-   Houston2018
+   Houston2018/
       Houston2018.mat
       Houston2018_gt.mat
-   WHU-Hi-LongKou
+   WHU-Hi-LongKou/
       WHU_Hi_LongKou.mat
       WHU_Hi_LongKou_gt.mat
 ```
