@@ -78,18 +78,15 @@ class HSIDataLoader(object):
     def load_data(self):
         data, labels = None, None
         if self.data_sign == "Indian_Pines":
-            data = sio.loadmat('./datasets/indian_pines_16/Indian_pines_corrected.mat')['indian_pines_corrected']
-            labels = sio.loadmat('./datasets/indian_pines_16/Indian_pines_gt.mat')['indian_pines_gt']
+            data = sio.loadmat('./datasets/Indian_Pines/Indian_pines_corrected.mat')['indian_pines_corrected']
+            labels = sio.loadmat('./datasets/Indian_Pines/Indian_pines_gt.mat')['indian_pines_gt']
         elif self.data_sign == "PaviaU":
-            data = sio.loadmat('./datasets/PaviaU_9/PaviaU.mat')['paviaU']
-            labels = sio.loadmat('./datasets/PaviaU_9/PaviaU_gt.mat')['paviaU_gt']
+            data = sio.loadmat('./datasets/PaviaU/PaviaU.mat')['paviaU']
+            labels = sio.loadmat('./datasets/PaviaU/PaviaU_gt.mat')['paviaU_gt']
         elif self.data_sign == "Houston2018":
             data = sio.loadmat('./datasets/Houston2018/Houston2018.mat')['houston2018']
             labels = sio.loadmat('./datasets/Houston2018/Houston2018_gt.mat')['houston2018_gt']
-        elif self.data_sign == "Salinas":
-            data = sio.loadmat('../data/Salinas_corrected.mat')['salinas_corrected']
-            labels = sio.loadmat('../data/Salinas_gt.mat')['salinas_gt']
-        elif self.data_sign == "Longkou":
+        elif self.data_sign == "WHU-Hi-LongKou":
             data = sio.loadmat('./datasets/WHU-Hi-LongKou/WHU_Hi_LongKou.mat')['WHU_Hi_LongKou']
             labels = sio.loadmat('./datasets/WHU-Hi-LongKou/WHU_Hi_LongKou_gt.mat')['WHU_Hi_LongKou_gt']
         else:
