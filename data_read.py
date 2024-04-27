@@ -1,7 +1,7 @@
 import numpy as np
 import scipy.io as sio
 from sklearn.decomposition import PCA
-from sklearn.preprocessing import MinMaxScaler, StandardScaler
+from sklearn.preprocessing import MinMaxScaler, StandardScaler, scale
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, accuracy_score, classification_report, cohen_kappa_score
 import torch
@@ -13,6 +13,20 @@ import os, sys
 import copy
 
 """ Training dataset"""
+
+class TrainDS(torch.utils.data.Dataset):
+
+    def __init__(self, Xtrain, ytrain):
+
+        self.len = Xtrain.shape[0]
+        self.x_data = torch.FloatTensor(Xtrain)
+        self.y_data = torch.LongTensor(ytrain)
+
+    def __getitem__(self, index):
+        return self.x_data[index], self.y_data[index]
+
+    def __len__(self):
+        return self.len
 
 class HSIDS(torch.utils.data.Dataset):
     def __init__(self, x, y):
@@ -41,6 +55,98 @@ class HSIDS_two(torch.utils.data.Dataset):
     def __len__(self):
         return self.len        
     
+class HSIDataLoader(object):
+    def __init__(self, param={}) -> None:
+        self.data_param = param.get('data', {})
+        self.data = None #原始读入X数据 shape=(h,w,c)
+        self.labels = None #原始读入Y数据 shape=(h,w,1)
+
+        self.data_sign = self.data_param.get('data_sign', 'Indian')
+        self.patch_size = self.data_param.get('patch_size', 32) # n * n
+        self.padding = self.data_param.get('padding', True) # n * n
+        self.remove_zeros = self.data_param.get('remove_zeros', False)
+        self.batch_size = self.data_param.get('batch_size', 256)
+        self.select_spectral = self.data_param.get('select_spectral', []) # [] all spectral selected
+
+        self.squzze = True
+
+        self.split_row = 0
+        self.split_col = 0
+
+        self.light_split_ori_shape = None
+        self.light_split_map = [] 
+
+
+
+    def load_data(self):
+        data, labels = None, None
+        if self.data_sign == "Indian_Pines":
+            data = sio.loadmat('./datasets/Indian_Pines/Indian_pines_corrected.mat')['indian_pines_corrected']
+            labels = sio.loadmat('./datasets/Indian_Pines/Indian_pines_gt.mat')['indian_pines_gt']
+        elif self.data_sign == "PaviaU":
+            data = sio.loadmat('./datasets/PaviaU/PaviaU.mat')['paviaU']
+            labels = sio.loadmat('./datasets/PaviaU/PaviaU_gt.mat')['paviaU_gt']
+        elif self.data_sign == "Houston2018":
+            data = sio.loadmat('./datasets/Houston2018/Houston2018.mat')['houston2018']
+            labels = sio.loadmat('./datasets/Houston2018/Houston2018_gt.mat')['houston2018_gt']
+        elif self.data_sign == "WHU-Hi-LongKou":
+            data = sio.loadmat('./datasets/WHU-Hi-LongKou/WHU_Hi_LongKou.mat')['WHU_Hi_LongKou']
+            labels = sio.loadmat('./datasets/WHU-Hi-LongKou/WHU_Hi_LongKou_gt.mat')['WHU_Hi_LongKou_gt']
+        else:
+            pass
+        print("ori data load shape is", data.shape, labels.shape)
+        if len(self.select_spectral) > 0:  #user choose spectral himself
+            data = data[:,:,self.select_spectral]
+        return data, labels
+
+    def padWithZeros_even(self, X, margin=2):
+        newX = np.zeros((X.shape[0] + 2 * margin - 1, X.shape[1] + 2 * margin - 1, X.shape[2]))
+        x_offset = margin
+        y_offset = margin
+        newX[x_offset:X.shape[0] + x_offset, y_offset:X.shape[1] + y_offset, :] = X
+        return newX
+
+    def createImageCubes_even(self, X, y, windowSize=32, removeZeroLabels = True):
+        margin = windowSize // 2
+        zeroPaddedX = self.padWithZeros_even(X, margin=margin)
+        patchesData = np.zeros((X.shape[0] * X.shape[1], windowSize, windowSize, X.shape[2]))
+        patchesLabels = np.zeros((X.shape[0] * X.shape[1]))
+        patchIndex = 0
+        for r in range(margin, zeroPaddedX.shape[0] - margin + 1):
+            for c in range(margin, zeroPaddedX.shape[1] - margin + 1):
+                patch = zeroPaddedX[r - margin:r + margin, c - margin:c + margin]
+                patchesData[patchIndex, :, :, :] = patch
+                patchesLabels[patchIndex] = y[r-margin, c-margin]
+                patchIndex = patchIndex + 1
+        if removeZeroLabels:
+            patchesData = patchesData[patchesLabels>0,:,:,:]
+            patchesLabels = patchesLabels[patchesLabels>0]
+            patchesLabels -= 1
+
+        return patchesData, patchesLabels
+        
+    def generate_torch_dataset(self, args, split=False, light_split=False):
+        self.data, self.labels = self.load_data()
+
+        data_hsi = self.data.reshape(
+            np.prod(self.data.shape[:2]), np.prod(self.data.shape[2:]))
+        pca = PCA(n_components=args['channel'])
+        data_hsi = pca.fit_transform(data_hsi)
+        data_hsi = scale(data_hsi)
+        norm_data = data_hsi.reshape(self.data.shape[0], self.data.shape[1], args['channel'])
+
+        
+        X_patchs, Y_patchs = self.createImageCubes_even(norm_data, self.labels, windowSize=self.patch_size)
+
+        X_all = X_patchs.transpose((0, 3, 1, 2))
+        print('------[data] after transpose train, test------')
+        print("X.shape=", X_all.shape)
+        print("Y.shape=", Y_patchs.shape)
+
+        trainset = TrainDS(X_all, Y_patchs)
+        
+        return trainset
+
 class HSIFeatureDataLoader(object):
     def __init__(self, args, diffusion_data_path) -> None:
         self.data_path_prefix = './save_features'
@@ -348,7 +454,6 @@ def random_unison(a, b, rstate=None):
     p = np.random.RandomState(seed=rstate).permutation(len(a))
     return a[p], b[p]
        
-
 
 if __name__ == "__main__":
     dataloader = HSIFeatureDataLoader({"data":{"data_path_prefix":'../../data', "data_sign": "Indian",
