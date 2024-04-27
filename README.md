@@ -1,6 +1,6 @@
 # MTMSD: Exploring Multi-Timestep Multi-Stage Diffusion Features for Hyperspectral Image Classification
 
-This repository is the official implementation of MTMSD: Exploring Multi-Timestep Multi-Stage Diffusion Features for Hyperspectral Image Classification 
+This repository is the official implementation of MTMSD: Exploring Multi-Timestep Multi-Stage Diffusion Features for Hyperspectral Image Classification. 
 
 ## Requirements
 Please follow the instructions below to install the required packages. We run the code and obtain the results on PyTorch 2.0.1 and CUDA 11.7. 
