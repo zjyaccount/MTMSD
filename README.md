@@ -1,7 +1,7 @@
 # MTMSD: Exploring Multi-Timestep Multi-Stage Diffusion Features for Hyperspectral Image Classification
 
 ## Requirements
-The code has been tested with PyTorch 2.0 and Cuda 11.7. 
+Please follow the instructions below to install the required packages. We run the code on PyTorch 2.0.1 and CUDA 11.7. 
 ```
 conda create -n MTMSD python=3.9
 conda install pytorch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 pytorch-cuda=11.7 -c pytorch -c nvidia
