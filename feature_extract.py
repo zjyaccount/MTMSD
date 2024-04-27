@@ -34,7 +34,7 @@ def extract(args, batch_size=16, patch_size=48, select_spectral=[]):
     res_glob_feature = np.expand_dims(np.stack(res_glob_feature, axis=0), axis=1)
     res_whole_feature = np.concatenate([res_feature, res_glob_feature], axis=1)
     print(f'Feature shape: {res_whole_feature.shape}')
-    path = './save_features/%s/full_image_feature_central_globs.npy' % args['dataset']
+    path = './save_features/%s/full_feature_central_globs.npy' % args['dataset']
     os.makedirs(os.path.dirname(path), exist_ok=True)
     np.save(path, res_whole_feature)
     print(f'Feature saved to {path}')
