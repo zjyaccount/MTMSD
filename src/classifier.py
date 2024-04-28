@@ -253,17 +253,17 @@ def predict_labels(models, features, globs=None, size=1028, if_glob_features=Fal
         img_seg_final = torch.mode(img_seg_final, 1)[0]
     return img_seg_final
     
-def compute_HSI(args, preds, gts, dataset="houston2018",print_per_class_ious=True):
-    if dataset == "indian_pines":
+def compute_HSI(args, preds, gts, print_per_class_ious=True):
+    if args['dataset'] == "Indian_Pines":
         target_names = ['Alfalfa', 'Corn-notill', 'Corn-mintill', 'Corn'
         , 'Grass-pasture', 'Grass-trees', 'Grass-pasture-mowed',
                     'Hay-windrowed', 'Oats', 'Soybean-notill', 'Soybean-mintill',
                     'Soybean-clean', 'Wheat', 'Woods', 'Buildings-Grass-Trees-Drives',
                     'Stone-Steel-Towers']
-    elif dataset == "paviaU":
+    elif args['dataset'] == "PaviaU":
         target_names = ['Asphalt', 'Meadows', 'Gravel', 'Trees'
         , 'Painted Metal Sheets', 'Bare Soil', 'Bitumen','Self-Blocking Bricks', 'Shadows']
-    elif dataset == "WHU-Hi-LongKou":
+    elif args['dataset'] == "WHU-Hi-LongKou":
         target_names = ['Corn', 'Cotton', 'Sesame', ' Broad-leaf soybean'
         , 'Narrow-leaf soybean', 'Rice', 'Water', 'Roads and houses','Mixed weed']
     else:
