@@ -13,10 +13,10 @@ pip install scikit-learn blobfile scipy tqdm
 
 ## Datasets
 Download following datasets:
-* Indian Pines
-* Pavia University
-* Houston 2018
-* WHU-Hi-LongKou
+* [Indian Pines](https://www.ehu.eus/ccwintco/index.php/Hyperspectral_Remote_Sensing_Scenes)
+* [Pavia University](https://www.ehu.eus/ccwintco/index.php/Hyperspectral_Remote_Sensing_Scenes)
+* [Houston 2018](http://hyperspectral.ee.uh.edu/?page_id=1075)
+* [WHU-Hi-LongKou](http://rsidea.whu.edu.cn/resource_WHUHi_sharing.htm)
   
 Then organize these datasets like:
 ```
