@@ -253,7 +253,7 @@ def predict_labels(models, features, globs=None, size=1028, if_glob_features=Fal
         img_seg_final = torch.mode(img_seg_final, 1)[0]
     return img_seg_final
     
-def compute_HSI(args, preds, gts, dataset="indian_pines",print_per_class_ious=True):
+def compute_HSI(args, preds, gts, dataset="houston2018",print_per_class_ious=True):
     if dataset == "indian_pines":
         target_names = ['Alfalfa', 'Corn-notill', 'Corn-mintill', 'Corn'
         , 'Grass-pasture', 'Grass-trees', 'Grass-pasture-mowed',
@@ -261,15 +261,11 @@ def compute_HSI(args, preds, gts, dataset="indian_pines",print_per_class_ious=Tr
                     'Soybean-clean', 'Wheat', 'Woods', 'Buildings-Grass-Trees-Drives',
                     'Stone-Steel-Towers']
     elif dataset == "paviaU":
-        target_names = ['Alfalfa', 'Corn-notill', 'Corn-mintill', 'Corn'
-        , 'Grass-pasture', 'Grass-trees', 'Grass-pasture-mowed',
-                    'Hay-windrowed', 'Oats', 'Soybean-notill', 'Soybean-mintill',
-                    'Soybean-clean', 'Wheat', 'Woods', 'Buildings-Grass-Trees-Drives',
-                    'Stone-Steel-Towers']
-    elif dataset == "houston2013":
-        target_names = ['Healthy grass', 'Stressed grass', 'Synthetic grass', ' Trees'
-        , 'Soil', 'Water', 'Residential','Commercial', 'Road', 'Highway', 'Railway',
-                    'Parking Lot 1', 'Parking Lot 2', 'Tennis Court', 'Running Track']
+        target_names = ['Asphalt', 'Meadows', 'Gravel', 'Trees'
+        , 'Painted Metal Sheets', 'Bare Soil', 'Bitumen','Self-Blocking Bricks', 'Shadows']
+    elif dataset == "WHU-Hi-LongKou":
+        target_names = ['Corn', 'Cotton', 'Sesame', ' Broad-leaf soybean'
+        , 'Narrow-leaf soybean', 'Rice', 'Water', 'Roads and houses','Mixed weed']
     else:
         target_names = ['Healthy grass', 'Stressed grass', 'Artificial turf', ' Evergreen trees'
         , 'Deciduous trees', 'Bare earth', 'Water','Residential buildings', 'Non-residential buildings', 'Roads', 'Sidewalks',
