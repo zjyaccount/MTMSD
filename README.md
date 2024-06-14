@@ -5,7 +5,7 @@ This repository is the official implementation of MTMSD: Exploring Multi-Timeste
 ## Citation
 If you find the code helpful for your research, please cite:
 ```
-J. Zhou et al., "Exploring Multi-Timestep Multi-Stage Diffusion Features for Hyperspectral Image Classification," in IEEE Transactions on Geoscience and Remote Sensing, doi: 10.1109/TGRS.2024.3407206. keywords: {Feature extraction;Semantics;Data mining;Representation learning;Task analysis;Noise reduction;Purification;Hyperspectral image classification;denoising diffusion probabilistic model;multi-timestep multi-stage features;feature purification;feature selection},
+J. Zhou et al., "Exploring Multi-Timestep Multi-Stage Diffusion Features for Hyperspectral Image Classification," in IEEE Transactions on Geoscience and Remote Sensing, vol. 62, pp. 1-16, 2024, Art no. 5519516, doi: 10.1109/TGRS.2024.3407206. keywords: {Feature extraction;Semantics;Data mining;Representation learning;Task analysis;Noise reduction;Purification;Denoising diffusion probabilistic model (DDPM);feature purification;feature selection;hyperspectral image (HSI) classification;multi-timestep multi-stage features},
 ```
 ```
 @ARTICLE{10542168,
@@ -13,10 +13,10 @@ J. Zhou et al., "Exploring Multi-Timestep Multi-Stage Diffusion Features for Hy
   journal={IEEE Transactions on Geoscience and Remote Sensing}, 
   title={Exploring Multi-Timestep Multi-Stage Diffusion Features for Hyperspectral Image Classification}, 
   year={2024},
-  volume={},
+  volume={62},
   number={},
-  pages={1-1},
-  keywords={Feature extraction;Semantics;Data mining;Representation learning;Task analysis;Noise reduction;Purification;Hyperspectral image classification;denoising diffusion probabilistic model;multi-timestep multi-stage features;feature purification;feature selection},
+  pages={1-16},
+  keywords={Feature extraction;Semantics;Data mining;Representation learning;Task analysis;Noise reduction;Purification;Denoising diffusion probabilistic model (DDPM);feature purification;feature selection;hyperspectral image (HSI) classification;multi-timestep multi-stage features},
   doi={10.1109/TGRS.2024.3407206}}
 ```
 
@@ -100,3 +100,7 @@ datasets/
    ```
    CUDA_VISIBLE_DEVICES=0 bash scripts/train_test_longkou.sh
    ```
+
+   ## Additional Notes
+   * When training samples are very small, lower the batchsize appropriately, or turn the drop_last to False
+   * The structure and code of the diffusion model are referenced from [improved diffusion](https://github.com/openai/improved-diffusion) 
