@@ -447,7 +447,7 @@ class HSIFeatureDataLoader(object):
                                                 num_workers=0,
                                                 drop_last=False
                                                 )
-        return train_loader, all_loader, all_loader, h, w, labels
+        return train_loader, test_loader, all_loader, h, w, labels
 
 def random_unison(a, b, rstate=None):
     assert len(a) == len(b)
